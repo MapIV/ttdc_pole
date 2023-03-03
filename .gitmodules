@@ -1,0 +1,6 @@
+[submodule "hesai_pandar"]
+	path = hesai_pandar
+	url = https://github.com/MapIV/hesai_pandar.git
+[submodule "ipcamera_driver"]
+	path = ipcamera_driver
+	url = https://github.com/alireza-hosseini/ipcamera_driver
