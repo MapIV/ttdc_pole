@@ -1,6 +1,6 @@
 <launch>
-    <arg name="ipcamera1_config_file" default="$(find ttdc)/config/ost_1-1.yaml" />
-    <arg name="ipcamera2_config_file" default="$(find ttdc)/config/ost_1-2.yaml" />
+    <arg name="ipcamera1_config_file" default="$(find ttdc)/config/1-1-fullhd.yaml" />
+    <arg name="ipcamera2_config_file" default="$(find ttdc)/config/1-2-fullhd.yaml" />
     <arg name="camera1_ip" default="192.168.2.120"/>
     <arg name="camera2_ip" default="192.168.3.120"/>
     <arg name="device_ip" default="192.168.1.201"/>
@@ -47,9 +47,11 @@
     <node name="ability_rectifier" pkg="image_proc" type="image_proc" output="screen"/>
     </group>
 
-    <include file="$(find pandar_pointcloud)/launch/pandarXT32.launch">
-        <arg name="device_ip" value="$(arg device_ip)" />
-    </include>
+    <group ns="$(arg system_ns)">
+        <include file="$(find pandar_pointcloud)/launch/pandarXT32.launch">
+            <arg name="device_ip" value="$(arg device_ip)" />
+        </include>
+    </group>
     <node pkg="tf2_ros" type="static_transform_publisher" name="camera_to_optical_tf1" args="0.13 0.075 -0.1 -0.76 -0.01 4.76 pandar cam1_link" />
     <node pkg="tf2_ros" type="static_transform_publisher" name="camera_to_optical_tf2" args="0.13 -0.075 -0.1 -2.44 0.07 4.75 pandar cam2_link" />
     <node pkg="rviz" type="rviz" name="ttdc_rviz" args="-d $(find ttdc)/config/rviz.rviz" />
